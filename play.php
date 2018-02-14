@@ -29,7 +29,7 @@ function get_winner($grid){
 	return false;
 }
 
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 
 $response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ), 'winner' => " ");
 
@@ -54,6 +54,15 @@ if (isset($_POST['grid']) && !empty($_POST['grid'])){
 	// echo "POST\n";
 	$b = true;
 }
+
+if (isset($_REQUEST['grid']) && !empty($_REQUEST['grid'])){
+	$response['grid'] = json_decode($_REQUEST['grid']);
+	// $a = json_decode($_REQUEST['grid']);
+	// echo "_REQUEST = ". print_r($a) . "\n";
+	$b = true;
+}
+
+// print_r($response);
 
 if ($b){
 	if (get_winner($response['grid']) == false){

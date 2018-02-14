@@ -28,18 +28,20 @@ function get_winner($grid){
 	return false;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  header('Method Not Allowed', true, 405);
+  echo "GET not available!";
+  exit;
+}
+
+
 header('Content-Type: application/json');
 
 $response = array('winner' => " ", 'grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ));
 
-// $response['grid'] = $_POST['grid'];
-// echo json_encode($response, JSON_PRETTY_PRINT);
-// exit;
-
 if (isset($_POST['grid'])){
 	$response['grid'] = $_POST['grid'];
 	if (get_winner($response['grid']) == false){
-
 		$empty = 0;
 		for ($i = 0; $i < 9; $i++){
 			if ($response['grid'][$i] == " "){
@@ -48,18 +50,10 @@ if (isset($_POST['grid'])){
 					$response['grid'][$i] = "O";
 			}
 		}
-
 		if (get_winner($response['grid']) == true)
 				$response['winner'] = "O";
-
-		// if ($empty == 0){
-			// draw
-		// }
-
 	} else 
 		$response['winner'] = "X";
-	
-
 }
 
 echo json_encode($response, JSON_PRETTY_PRINT);

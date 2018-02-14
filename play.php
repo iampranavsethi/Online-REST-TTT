@@ -28,16 +28,13 @@ function get_winner($grid){
 	return false;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-  header('Method Not Allowed', true, 405);
-  echo "GET not available!";
-  exit;
-}
-
-
 header('Content-Type: application/json');
 
 $response = array('winner' => " ", 'grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ));
+
+$file = fopen("log.txt" ,"w");
+fputs($file, print_r($_POST, true));
+fclose($file);
 
 if (isset($_POST['grid'])){
 	$response['grid'] = $_POST['grid'];

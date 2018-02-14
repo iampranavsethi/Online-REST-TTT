@@ -63,7 +63,7 @@ else {
 	$data = file_get_contents("php://input");
 	$file = fopen("log.txt" ,"a");
 	fputs($file, "REQUEST FROM :" . $_SERVER['REMOTE_ADDR'] . "\n");
-	fputs($file, "DATA: " . $data . "\n");
+	fputs($file, "REQUEST: " . $data . "\n");
 	$data = json_decode($data, true);
 	$b = true;
 	$response['grid'] = $data['grid'];
@@ -72,12 +72,10 @@ else {
 
 if ($b){
 	if (get_winner($response['grid']) == false){
-		$empty = 0;
 		for ($i = 0; $i < 9; $i++){
 			if ($response['grid'][$i] == " "){
-				$empty++;
-				if ($empty == 1)
-					$response['grid'][$i] = "O";
+				$response['grid'][$i] = "O";
+				break;
 			}
 		}
 		if (get_winner($response['grid']) == true)

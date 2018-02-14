@@ -39,7 +39,7 @@ function make_x_move(position){
 		if (ttt[position-1] == " "){
 			ttt[position-1] = "X";
 			
-			$.post("./play", {grid: ttt}, function(data, err){
+			$.post("./play", {"grid": ttt}, function(data, err){
 				ttt = data.grid
 				winner = data.winner;
 				print_board(ttt);

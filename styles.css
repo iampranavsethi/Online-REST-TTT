@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+html, body{
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #fff;
+	font-family: 'Open Sans';
+	font-weight: 300;
+	font-size: 24pt;
+}
+.container{
+	min-height: 95%;
+	width: 100%;
+}
+.footer{
+	border-top: 1px solid #777;  
+	width: 100%;
+	text-align: center;
+	padding-top: 10px;
+	font-size: 12pt;
+}
+.main{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-40%);
+	text-align: center;
+}
+.m-text{
+	letter-spacing: 10px;
+	text-transform: uppercase;
+}
+
+input, input[type='text'].my-input{
+	width: 75%;
+	padding: 15px;
+	outline: none;
+	font-size: 14pt;
+	letter-spacing: 2px;
+	font-family: 'Inconsolata', monospace;
+}
+
+input[type=submit].my-button{
+	width: 50%;
+	background: none;
+	background-color: #39f; 
+	color: white;
+	border: 1px solid #999;
+	font-family: 'Open Sans' !important;
+	box-shadow: none;
+	border-radius: 0px;
+	cursor: pointer;
+}
+
+table.my-table{
+	width: 350px;
+	text-align: center;
+	font-family: 'Open Sans';
+}
+
+table.my-table td{
+	width: 100px;
+	height: 100px;
+}
+
+td.cell-hover:hover{
+	background-color: #eee;
+	cursor: pointer;
+}
+
+.winner{
+	min-height: 100px;
+	font-family: 'Inconsolata', monospace;
+}
+
+td#box-1{
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+td#box-2{
+	border-bottom: 1px solid black;
+}
+td#box-3{
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+td#box-4{
+	border-right: 1px solid black;
+}
+td#box-5{
+
+}
+td#box-6{
+	border-left: 1px solid black;
+}
+td#box-7{
+	border-right: 1px solid black;
+	border-top: 1px solid black;
+}
+td#box-8{
+	border-top: 1px solid black;
+}
+td#box-9{
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+}

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 
 function get_winner($grid){
 	// row 
@@ -42,17 +43,19 @@ fclose($file);
 $b = false;
 
 if (isset($_GET['grid']) && !empty($_GET['grid'])){
-	$response['grid'] = $_GET['grid'];
+	$response['grid'] = json_decode($_GET['grid']);
+	// echo "GET\n";
+	// echo $_GET['grid'];
 	$b = true;
 }
 
 if (isset($_POST['grid']) && !empty($_POST['grid'])){
-	$response['grid'] = $_POST['grid'];
+	$response['grid'] = json_decode($_POST['grid']);
+	// echo "POST\n";
 	$b = true;
 }
 
 if ($b){
-	$response['grid'] = $_POST['grid'];
 	if (get_winner($response['grid']) == false){
 		$empty = 0;
 		for ($i = 0; $i < 9; $i++){

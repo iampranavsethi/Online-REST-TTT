@@ -33,12 +33,6 @@ header('Content-Type: application/json');
 
 $response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ), 'winner' => " ");
 
-$file = fopen("log.txt" ,"a");
-fputs($file, "REQUEST FROM :" . $_SERVER['REMOTE_ADDR'] . "\n");
-fputs($file, "POST\n" . print_r($_POST, true) . "\n");
-fputs($file, "GET\n" . print_r($_GET, true) . "\n\n");
-fclose($file);
-
 
 $b = false;
 // if ($_GET){
@@ -67,6 +61,10 @@ if ($_POST){
 // }
 else {
 	$data = file_get_contents("php://input");
+	$file = fopen("log.txt" ,"a");
+	fputs($file, "REQUEST FROM :" . $_SERVER['REMOTE_ADDR'] . "\n");
+	fputs($file, "DATA\n" . $data . "\n\n");
+	fclose($file);
 	$data = json_decode($data, true);
 	$b = true;
 	$response['grid'] = $data['grid'];

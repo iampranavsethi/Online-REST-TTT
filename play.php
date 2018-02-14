@@ -33,6 +33,7 @@ header('Content-Type: application/json');
 $response = array('winner' => " ", 'grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ));
 
 $file = fopen("log.txt" ,"a");
+fputs($file, "REQUEST FROM :" . $_SERVER['REMOTE_ADDR'] . "\n");
 fputs($file, "POST\n" . print_r($_POST, true) . "\n");
 fputs($file, "GET\n" . print_r($_GET, true) . "\n\n");
 fclose($file);

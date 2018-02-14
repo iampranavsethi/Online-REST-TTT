@@ -30,7 +30,7 @@ function get_winner($grid){
 
 header('Content-Type: application/json');
 
-$response = array('winner' => " ", 'grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ));
+$response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ));
 
 $file = fopen("log.txt" ,"a");
 fputs($file, "REQUEST FROM :" . $_SERVER['REMOTE_ADDR'] . "\n");
@@ -51,10 +51,13 @@ if (isset($_POST['grid'])){
 		}
 		if (get_winner($response['grid']) == true)
 				$response['winner'] = "O";
+		if ($empty == 0){
+				$response['winner'] = " ";
+		}
 	} else 
 		$response['winner'] = "X";
 }
 
-echo json_encode($response, JSON_PRETTY_PRINT);
+echo json_encode($response);
 
 ?>

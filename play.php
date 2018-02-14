@@ -63,7 +63,7 @@ else {
 	$data = file_get_contents("php://input");
 	$file = fopen("log.txt" ,"a");
 	fputs($file, "REQUEST FROM :" . $_SERVER['REMOTE_ADDR'] . "\n");
-	fputs($file, "DATA\n" . $data . "\n\n");
+	fputs($file, "DATA: " . $data . "\n");
 	$data = json_decode($data, true);
 	$b = true;
 	$response['grid'] = $data['grid'];
@@ -86,7 +86,7 @@ if ($b){
 		$response['winner'] = "X";
 }
 
-fputs($file, "RESPONSE: " . json_encode($response));
+fputs($file, "RESPONSE: " . json_encode($response) . "\n\n");
 fclose($file);
 echo json_encode($response);
 

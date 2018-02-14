@@ -38,7 +38,20 @@ fputs($file, "POST\n" . print_r($_POST, true) . "\n");
 fputs($file, "GET\n" . print_r($_GET, true) . "\n\n");
 fclose($file);
 
-if (isset($_POST['grid'])){
+
+$b = false;
+
+if (isset($_GET['grid']) && !empty($_GET['grid'])){
+	$response['grid'] = $_GET['grid'];
+	$b = true;
+}
+
+if (isset($_POST['grid']) && !empty($_POST['grid'])){
+	$response['grid'] = $_POST['grid'];
+	$b = true;
+}
+
+if ($b){
 	$response['grid'] = $_POST['grid'];
 	if (get_winner($response['grid']) == false){
 		$empty = 0;

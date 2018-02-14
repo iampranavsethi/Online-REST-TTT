@@ -29,7 +29,7 @@ function get_winner($grid){
 	return false;
 }
 
-// header('Content-Type: application/json');
+header('Content-Type: application/json');
 
 $response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ), 'winner' => " ");
 
@@ -41,27 +41,36 @@ fclose($file);
 
 
 $b = false;
+// if ($_GET){
+// 	$a = json_decode($_GET);
+// 	$response['grid'] = json_decode($_GET['grid']);
+// 	echo "GET1\n";
+// 	print_r($a);
+// 	print_r($_GET);
+// 	echo $_GET['grid'];
+// 	$b = true;
+// }
 
-if (isset($_GET['grid']) && !empty($_GET['grid'])){
-	$response['grid'] = json_decode($_GET['grid']);
-	// echo "GET\n";
-	// echo $_GET['grid'];
-	$b = true;
-}
-
-if (isset($_POST['grid']) && !empty($_POST['grid'])){
-	$response['grid'] = json_decode($_POST['grid']);
+if ($_POST){
+	$response['grid'] = $_POST['grid'];
 	// echo "POST\n";
+	// print_r($_POST);
 	$b = true;
 }
 
-if (isset($_REQUEST['grid']) && !empty($_REQUEST['grid'])){
-	$response['grid'] = json_decode($_REQUEST['grid']);
-	// $a = json_decode($_REQUEST['grid']);
-	// echo "_REQUEST = ". print_r($a) . "\n";
+// if ($_REQUEST){
+// 	$a = json_decode($_REQUEST);
+// 	$a = json_decode($_REQUEST['grid']);
+// 	echo "REQUEST1\n";
+// 	print_r($a);
+// 	$b = true;
+// }
+else {
+	$data = file_get_contents("php://input");
+	$data = json_decode($data, true);
 	$b = true;
+	$response['grid'] = $data['grid'];
 }
-
 // print_r($response);
 
 if ($b){

@@ -32,8 +32,8 @@ header('Content-Type: application/json');
 
 $response = array('winner' => " ", 'grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ));
 
-$file = fopen("log.txt" ,"w");
-fputs($file, print_r($_POST, true));
+$file = fopen("log.txt" ,"a");
+fputs($file, print_r($_POST, true) . "\n\n");
 fclose($file);
 
 if (isset($_POST['grid'])){

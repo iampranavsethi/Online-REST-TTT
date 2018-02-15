@@ -33,44 +33,11 @@ header('Content-Type: application/json');
 
 $response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ), 'winner' => " ");
 
+$data = file_get_contents("php://input");
+$data = json_decode($data, true);
+$response['grid'] = $data['grid'];
 
-$b = false;
-// if ($_GET){
-// 	$a = json_decode($_GET);
-// 	$response['grid'] = json_decode($_GET['grid']);
-// 	echo "GET1\n";
-// 	print_r($a);
-// 	print_r($_GET);
-// 	echo $_GET['grid'];
-// 	$b = true;
-// }
-
-if ($_POST){
-	$response['grid'] = $_POST['grid'];
-	// echo "POST\n";
-	// print_r($_POST);
-	$b = true;
-}
-
-// if ($_REQUEST){
-// 	$a = json_decode($_REQUEST);
-// 	$a = json_decode($_REQUEST['grid']);
-// 	echo "REQUEST1\n";
-// 	print_r($a);
-// 	$b = true;
-// }
-else {
-	$data = file_get_contents("php://input");
-	$file = fopen("log.txt" ,"a");
-	fputs($file, "REQUEST FROM :" . $_SERVER['REMOTE_ADDR'] . "\n");
-	fputs($file, "REQUEST: " . $data . "\n");
-	$data = json_decode($data, true);
-	$b = true;
-	$response['grid'] = $data['grid'];
-}
-// print_r($response);
-
-if ($b){
+if ($data['grid']){
 	if (get_winner($response['grid']) == false){
 		for ($i = 0; $i < 9; $i++){
 			if ($response['grid'][$i] == " "){
@@ -84,8 +51,6 @@ if ($b){
 		$response['winner'] = "X";
 }
 
-fputs($file, "RESPONSE: " . json_encode($response) . "\n\n");
-fclose($file);
-echo json_encode($response);
+echo json_encode($response, JSON_PRETTY_PRINT);
 
 ?>

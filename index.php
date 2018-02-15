@@ -25,9 +25,9 @@ date_default_timezone_set('America/New_York');
 					$time = getdate(time());
 					@unlink("log.txt");
 				?>
-				Hello <?php #echo trim(ucwords(strtolower($_POST['name']))). ". It's " . $time['month'] . " " . $time['mday'] . "<sup>th</sup>, " . $time['year'] ?> 
+				Hello <?php echo trim(ucwords(strtolower($_POST['name']))). ". It's " . $time['month'] . " " . $time['mday'] . "<sup>th</sup>, " . $time['year'] ?> 
 	
-				<?php echo $_POST['name']. ", " . $time['mon'] . "/" . $time['mday'] . "/" . $time['year'] ?>
+				<?php #echo $_POST['name']. ", " . $time['mon'] . "/" . $time['mday'] . "/" . $time['year'] ?>
 
 				<br> <br> <br>
 				

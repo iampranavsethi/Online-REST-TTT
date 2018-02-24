@@ -67,15 +67,9 @@ if (isset($_COOKIE['ttt-session'])){
 			$gs = 0;
 			$sd = date("Y-m-d H:i:s"); 
 			$stmt -> execute();
+			goto s;
 		}
-
-		goto s;
-		// $stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = '0' LIMIT 1");
-		// $stmt->bind_param("d", $uid);
-		// $uid = $user_id;
-		// $stmt -> execute();
-		// $res = $stmt->get_result();
-
+		
 		while ($row = $res->fetch_assoc()){
 			setcookie('ttt-game', json_encode($row), (time() + 86400) , "/");
 			$game = json_encode($row);

@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 $email = "";
 $key = "";
 
-if (isset($_GET)){
+if (isset($_GET) && !empty($_GET['email'])){
 	$email = $_GET['email'];
 	$key = $_GET['key'];
 } 

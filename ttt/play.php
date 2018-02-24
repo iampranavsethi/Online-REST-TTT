@@ -1,5 +1,6 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
+require_once('../config.php');
 
 function get_winner($grid){
 	// row 
@@ -33,24 +34,67 @@ header('Content-Type: application/json');
 
 $response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ), 'winner' => " ");
 
-$data = file_get_contents("php://input");
-$data = json_decode($data, true);
-$response['grid'] = $data['grid'];
+if (isset($_COOKIE['ttt-session'])){
 
-if ($data['grid']){
+	$session = json_decode($_COOKIE['ttt-session'], true);
+
+	$data = file_get_contents("php://input");
+	$data = json_decode($data, true);
+
+	$move = -1;
+
+	if (isset($data['move'])){
+		$move = $data['move'];
+	} else error();
+
+	$game = null;
+	if (isset($_COOKIE['ttt-game'])){
+		$game = json_decode($_COOKIE['ttt-game']);
+	
+	} else 
+		$game = json_decode(get_current_game($session['id']));
+
+	$grid = unserialize(urldecode($game['board_state']));
+
+	if (is_null($move)){
+		$response['grid'] = $grid;
+		$response['winner'] = $game['winner'];
+		echo json_encode($response, JSON_PRETTY_PRINT);
+		exit();
+	}
+
+	// possible error prone zone
+	if ($grid[$move] != " "){
+		error();
+	}
+
+	$grid[$move] = "X";
+	$response['grid'] = $grid;
+
 	if (get_winner($response['grid']) == false){
+		$i = -1;
 		for ($i = 0; $i < 9; $i++){
 			if ($response['grid'][$i] == " "){
 				$response['grid'][$i] = "O";
 				break;
 			}
 		}
-		if (get_winner($response['grid']) == true)
+		if (get_winner($response['grid']) == true){
 				$response['winner'] = "O";
-	} else 
+				terminate_game($game['id'], $response['winner']);
+		}
+
+		if ($i == 9 && $response['winner'] == " "){
+			terminate_game($game['id'], " ");
+		}
+
+	} else {
 		$response['winner'] = "X";
-}
+		terminate_game($game['id'], $response['winner']);
+	}
 
-echo json_encode($response, JSON_PRETTY_PRINT);
 
+	echo json_encode($response, JSON_PRETTY_PRINT);
+
+} else error();
 ?>

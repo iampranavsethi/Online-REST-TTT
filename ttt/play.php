@@ -32,13 +32,20 @@ function get_current_game($user_id){
 
 	while ($row = $res->fetch_assoc()){
 		setcookie('ttt-game', json_encode($row), (time() + 86400) , "/");
-		return json_encode($row);
+		$res1 = array('id' => $row['id'],
+						'user_id' => $row['user_id'],
+						'board_state' => $row['board_state'],
+						'game_state' => $row['game_state'],
+						'start_date' => $row['start_date'],
+						'winner' => $row['winner']
+					);
+		return json_encode($res1);
 	}	
 }
 
 function terminate_game($game_id, $winner){
 	$host = "localhost"; $username = "root"; $password = "root"; $database = "ttt";
-	
+
 	$conn = new mysqli($host, $username, $password, $database);
 
 	$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");

@@ -11,8 +11,8 @@ if (isset($_GET)){
 } 
 else {
 	$data = file_get_contents("php://input");
-	if (empty($data)) error();
 	$data = json_decode($data, true);
+	if (empty($data)) error();
 
 	$email = $data['email'];
 	$key = $data['key'];

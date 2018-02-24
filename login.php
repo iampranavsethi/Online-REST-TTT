@@ -23,7 +23,7 @@ if (!empty($data) && isset($data['username']) && isset($data['password'])){
 	}
 
 	while ($row = $res -> fetch_assoc()){
-		setcookie("ttt-session", json_encode($row), time() + 86400);
+		setcookie("ttt-session", json_encode($row), (time() + 86400) , "/");
 	}
 
 	success();

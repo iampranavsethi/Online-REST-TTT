@@ -14,9 +14,9 @@ if (!empty($data) && isset($data['username']) && isset($data['password'])){
 	$username = $data['username'];
 	$password = $data['password'];
 
-	$stmt -> execute();
+	$s = $stmt -> execute();
 
-	if ($stmt->rowCount() == 0){
+	if ($s->rowCount() == 0){
 		error();
 	}
 

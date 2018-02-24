@@ -2,60 +2,6 @@
 //error_reporting(0);
 require_once('../config.php');
 
-function get_current_game($user_id){
-
-	$host = "localhost"; $username = "root"; $password = "root"; $database = "ttt";
-
-	$conn = new mysqli($host, $username, $password, $database);
-	$stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = '0' LIMIT 1");
-	$stmt->bind_param("d", $uid);
-	$uid = $user_id;
-	$stmt -> execute();
-	$res = $stmt->get_result();
-
-	if ($res -> num_rows == 0){
-		$stmt = $conn->prepare("INSERT INTO games (user_id, board_state, game_state, start_date) VALUES (?,?,?,?)");
-		$stmt->bind_param("dsds", $uid, $bs, $gs, $sd);
-		$uid = $user_id;
-		$bs = urlencode(serialize(array(" ", " ", " "," ", " ", " "," ", " ", " ")));
-		$gs = 0;
-		$sd = date("Y-m-d H:i:s"); 
-		$stmt -> execute();
-	}
-
-	$stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = '0' LIMIT 1");
-	$stmt->bind_param("d", $uid);
-	$uid = $user_id;
-	$stmt -> execute();
-	$res = $stmt->get_result();
-
-
-	while ($row = $res->fetch_assoc()){
-		setcookie('ttt-game', json_encode($row), (time() + 86400) , "/");
-		$res1 = array('id' => $row['id'],
-						'user_id' => $row['user_id'],
-						'board_state' => $row['board_state'],
-						'game_state' => $row['game_state'],
-						'start_date' => $row['start_date'],
-						'winner' => $row['winner']
-					);
-		return json_encode($res1);
-	}	
-}
-
-function terminate_game($game_id, $winner){
-	$host = "localhost"; $username = "root"; $password = "root"; $database = "ttt";
-
-	$conn = new mysqli($host, $username, $password, $database);
-
-	$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
-	$stmt->bind_param("sd", $w, $gid);
-	$gid = $game_id;
-	$w = $winner;
-	$stmt -> execute();
-	setcookie('ttt-game', "", (time() - 86400), "/");
-}
-
 function get_winner($grid){
 	// row 
 	if ($grid[0] == $grid[1] && $grid[1] != " " && $grid[1] == $grid[2])
@@ -104,9 +50,39 @@ if (isset($_COOKIE['ttt-session'])){
 	$game = null;
 	if (isset($_COOKIE['ttt-game'])){
 		$game = json_decode($_COOKIE['ttt-game']);
-	
-	} else 
-		$game = json_decode(get_current_game($session['id']));
+
+	} else {
+		s:
+		$stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = '0' LIMIT 1");
+		$stmt->bind_param("d", $uid);
+		$uid = $user_id;
+		$stmt -> execute();
+		$res = $stmt->get_result();
+
+		if ($res -> num_rows == 0){
+			$stmt = $conn->prepare("INSERT INTO games (user_id, board_state, game_state, start_date) VALUES (?,?,?,?)");
+			$stmt->bind_param("dsds", $uid, $bs, $gs, $sd);
+			$uid = $user_id;
+			$bs = urlencode(serialize(array(" ", " ", " "," ", " ", " "," ", " ", " ")));
+			$gs = 0;
+			$sd = date("Y-m-d H:i:s"); 
+			$stmt -> execute();
+		}
+
+		goto s;
+		// $stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = '0' LIMIT 1");
+		// $stmt->bind_param("d", $uid);
+		// $uid = $user_id;
+		// $stmt -> execute();
+		// $res = $stmt->get_result();
+
+		while ($row = $res->fetch_assoc()){
+			setcookie('ttt-game', json_encode($row), (time() + 86400) , "/");
+			$game = json_encode($row);
+		}	
+		
+		$game = json_decode($game);
+	}
 
 	$grid = unserialize(urldecode($game['board_state']));
 
@@ -135,16 +111,31 @@ if (isset($_COOKIE['ttt-session'])){
 		}
 		if (get_winner($response['grid']) == true){
 				$response['winner'] = "O";
-				terminate_game($game['id'], $response['winner']);
+				$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
+				$stmt->bind_param("sd", $w, $gid);
+				$gid = $game['id'];
+				$w = $response['winner'];
+				$stmt -> execute();
+				setcookie('ttt-game', "", (time() - 86400), "/");
 		}
 
 		if ($i == 9 && $response['winner'] == " "){
-			terminate_game($game['id'], " ");
+			$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
+			$stmt->bind_param("sd", $w, $gid);
+			$gid = $game['id'];
+			$w = " ";
+			$stmt -> execute();
+			setcookie('ttt-game', "", (time() - 86400), "/");
 		}
 
 	} else {
 		$response['winner'] = "X";
-		terminate_game($game['id'], $response['winner']);
+		$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
+		$stmt->bind_param("sd", $w, $gid);
+		$gid = $game['id'];
+		$w = $response['winner'];
+		$stmt -> execute();
+		setcookie('ttt-game', "", (time() - 86400), "/");
 	}
 
 

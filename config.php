@@ -46,39 +46,4 @@ function send_email($to){
     $r = mail($to,$subject,$message,$headers);
     return $r;
 }
-
-function get_current_game($user_id){
-start:
-	$stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = '0' LIMIT 1");
-	$stmt->bind_param("d", $uid);
-	$uid = $user_id;
-	$stmt -> execute();
-	$res = $stmt->get_result();
-
-	if ($res -> num_rows == 0){
-		$stmt = $conn->prepare("INSERT INTO games (user_id, board_state, game_state, start_date) VALUES (?,?,?,?)");
-		$stmt->bind_param("dsds", $uid, $bs, $gs, $sd);
-		$uid = $user_id;
-		$bs = urlencode(serialize(array(" ", " ", " "," ", " ", " "," ", " ", " ")));
-		$gs = 0;
-		$sd = date("Y-m-d H:i:s"); 
-		$stmt -> execute();
-		goto start;
-	}
-
-	while ($row = $res->fetch_assoc()){
-		setcookie('ttt-game', json_encode($row), (time() + 86400) , "/");
-		return json_encode($row);
-	}	
-}
-
-function terminate_game($game_id, $winner){
-	$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
-	$stmt->bind_param("sd", $w, $gid);
-	$gid = $game_id;
-	$w = $winner;
-	$stmt -> execute();
-	setcookie('ttt-game', "", (time() - 86400), "/");
-}
-
 ?>

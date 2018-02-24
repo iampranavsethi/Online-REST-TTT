@@ -57,7 +57,7 @@ start:
 
 	if ($res -> num_rows == 0){
 		$stmt = $conn->prepare("INSERT INTO games (user_id, board_state, game_state, start_date) VALUES (?,?,?,?));
-		$stmt->bind_param("dsds", $uid, $bs, $gs, $sd);
+		$stmt->bind_param("ssss", $uid, $bs, $gs, $sd);
 		$uid = $user_id;
 		$bs = urlencode(serialize(array(" ", " ", " "," ", " ", " "," ", " ", " ")));
 		$gs = 0;

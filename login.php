@@ -18,7 +18,7 @@ if (!empty($data) && isset($data['username']) && isset($data['password'])){
 
 	$res = $stmt->get_result();
 
-	if ($res->rowCount() == 0){
+	if ($res->num_rows == 0){
 		error();
 	}
 

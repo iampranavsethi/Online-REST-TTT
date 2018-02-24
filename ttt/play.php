@@ -49,7 +49,7 @@ if (isset($_COOKIE['ttt-session'])){
 
 	$game = null;
 	if (isset($_COOKIE['ttt-game'])){
-		$game = json_decode($_COOKIE['ttt-game']);
+		$game = json_decode($_COOKIE['ttt-game'], true);
 
 	} else {
 		s:
@@ -81,7 +81,7 @@ if (isset($_COOKIE['ttt-session'])){
 			$game = json_encode($row);
 		}	
 		
-		$game = json_decode($game);
+		$game = json_decode($game, true);
 	}
 
 	$grid = unserialize(urldecode($game['board_state']));

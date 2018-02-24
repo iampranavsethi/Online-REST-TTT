@@ -23,7 +23,7 @@ if (isset($_COOKIE['ttt-session']) && !empty($data['id']) ){
 	$response = array('status' => "OK", 'grid' => array(), 'winner' => " ");
 
 	while ($row = $res -> fetch_assoc()){
-		$response['grid'] = unserialize(($row['board_state']));
+		$response['grid'] = unserialize(urldecode($row['board_state']));
 		$response['winner'] = $row['winner'];
 	}
 

@@ -19,7 +19,6 @@ function success(){
 	echo json_encode(array('status' => "OK"), JSON_PRETTY_PRINT);	
 }
 
-
 function send_email($to){
 	$hs = gethostname();
     $subject = "[WP2] Verify TTT Account!";

@@ -21,7 +21,7 @@ if (isset($_COOKIE['ttt-session'])){
 
 	while ($row = $res -> fetch_assoc()){
 		if (!is_null($row['winner'])){
-			$row['winner'] == ' ' ? $response['tie']++ : ($row['winner'] == 'X' ? $response['human']++ : $response['wopr']++);
+			empty($row['winner']) ? $response['tie']++ : ($row['winner'] == 'X' ? $response['human']++ : $response['wopr']++);
 		}
 	}
 

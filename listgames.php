@@ -9,7 +9,7 @@ if (isset($_COOKIE['ttt-session'])){
 	$user = json_decode($_COOKIE['ttt-session'],true);
 
 	$stmt = $conn->prepare("SELECT id, start_date FROM games WHERE user_id = ?");
-	$stmt->bind_param("s", $user_id);
+	$stmt->bind_param("d", $user_id);
 
 	$user_id = $user['id'];
 

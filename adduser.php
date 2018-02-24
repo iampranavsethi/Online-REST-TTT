@@ -17,7 +17,10 @@ if (!empty($data) && isset($data['username']) && isset($data['password']) && iss
 
 	if (!$stmt -> execute())
 		error();
-	else success();
+	else {
+		send_email($email);
+		success();
+	}
 
 } else error();
 

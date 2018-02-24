@@ -30,7 +30,7 @@ function get_winner($grid){
 	return false;
 }
 
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 
 $response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ), 'winner' => " ");
 
@@ -43,46 +43,52 @@ if (isset($_COOKIE['ttt-session'])){
 
 	$move = -1;
 
-	if (isset($data['move'])){
+	if (array_key_exists('move', $data)){
 		$move = $data['move'];
-	} else error();
+	} else {
+		error();
+	}
 
-	$game = null;
+	$game = array();
 	if (isset($_COOKIE['ttt-game'])){
 		$game = json_decode($_COOKIE['ttt-game'], true);
 
 	} else {
-		s:
-		$stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = '0' LIMIT 1");
+		$stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = 0 LIMIT 1");
 		$stmt->bind_param("d", $uid);
-		$uid = $user_id;
+		$uid = $session['id'];
 		$stmt -> execute();
 		$res = $stmt->get_result();
 
 		if ($res -> num_rows == 0){
 			$stmt = $conn->prepare("INSERT INTO games (user_id, board_state, game_state, start_date) VALUES (?,?,?,?)");
 			$stmt->bind_param("dsds", $uid, $bs, $gs, $sd);
-			$uid = $user_id;
-			$bs = urlencode(serialize(array(" ", " ", " "," ", " ", " "," ", " ", " ")));
+			$uid = $session['id'];
+			$bs = json_encode(array(" ", " ", " "," ", " ", " "," ", " ", " "));
 			$gs = 0;
 			$sd = date("Y-m-d H:i:s"); 
 			$stmt -> execute();
-			goto s;
+		
+			$stmt = $conn->prepare("SELECT * FROM games WHERE user_id = ? AND game_state = 0 LIMIT 1");
+			$stmt->bind_param("d", $uid);
+			$uid = $session['id'];
+			$stmt -> execute();
+			$res = $stmt->get_result();
 		}
 		
 		while ($row = $res->fetch_assoc()){
-			setcookie('ttt-game', json_encode($row), (time() + 86400) , "/");
+			// setcookie('ttt-game', json_encode($row), (time() + 86400) , "/");
 			$game = json_encode($row);
 		}	
 		
 		$game = json_decode($game, true);
 	}
 
-	$grid = unserialize(urldecode($game['board_state']));
+	$grid = json_decode($game['board_state'], true) ;
 
 	if (is_null($move)){
 		$response['grid'] = $grid;
-		$response['winner'] = $game['winner'];
+		$response['winner'] = is_null($game['winner'])? " " :  $game['winner'];
 		echo json_encode($response, JSON_PRETTY_PRINT);
 		exit();
 	}
@@ -104,32 +110,50 @@ if (isset($_COOKIE['ttt-session'])){
 			}
 		}
 		if (get_winner($response['grid']) == true){
+
+
 				$response['winner'] = "O";
-				$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
+				$stmt = $conn->prepare("UPDATE games SET game_state = 1, winner = ?  WHERE id = ?");
 				$stmt->bind_param("sd", $w, $gid);
 				$gid = $game['id'];
 				$w = $response['winner'];
 				$stmt -> execute();
-				setcookie('ttt-game', "", (time() - 86400), "/");
+				// setcookie('ttt-game', "", (time() - 86400), "/");
 		}
 
-		if ($i == 9 && $response['winner'] == " "){
-			$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
+		else if ($i == 9 && $response['winner'] == " "){
+
+
+			$stmt = $conn->prepare("UPDATE games SET game_state = 1, winner = ?  WHERE id = ?");
 			$stmt->bind_param("sd", $w, $gid);
 			$gid = $game['id'];
 			$w = " ";
 			$stmt -> execute();
-			setcookie('ttt-game', "", (time() - 86400), "/");
+			// setcookie('ttt-game', "", (time() - 86400), "/");
+		}
+
+		else {
+
+
+			$stmt = $conn->prepare("UPDATE games SET board_state = ? WHERE id = ?" );
+			$stmt->bind_param("sd", $board, $gid);
+			// $board = ;
+			$board = json_encode($response['grid']);
+			// echo $board;
+			$gid = $game['id'];
+			$stmt -> execute();
 		}
 
 	} else {
+
 		$response['winner'] = "X";
-		$stmt = $conn->prepare("UPDATE game SET game_state = '1' AND winner = ?  WHERE id = ?");
-		$stmt->bind_param("sd", $w, $gid);
-		$gid = $game['id'];
+		$stmt = $conn->prepare("UPDATE games SET game_state = 1, board_state = ?,  winner = ?  WHERE id = ?");
+		$stmt->bind_param("ssd", $board, $w, $gid);
+		$board = json_encode($response['grid']);
 		$w = $response['winner'];
+		$gid = $game['id'];
 		$stmt -> execute();
-		setcookie('ttt-game', "", (time() - 86400), "/");
+		// setcookie('ttt-game', "", (time() - 86400), "/");
 	}
 
 

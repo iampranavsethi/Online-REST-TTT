@@ -14,13 +14,13 @@ if (!empty($data) && isset($data['username']) && isset($data['password'])){
 	$username = $data['username'];
 	$password = $data['password'];
 
-	$s = $stmt -> execute();
-
-	if ($s->rowCount() == 0){
-		error();
-	}
+	$stmt -> execute();
 
 	$res = $stmt->get_result();
+
+	if ($res->rowCount() == 0){
+		error();
+	}
 
 	while ($row = $res -> fetch_assoc()){
 		setcookie("ttt-session", json_encode($row), time() + 86400);

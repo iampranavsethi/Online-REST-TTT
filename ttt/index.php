@@ -11,7 +11,7 @@ date_default_timezone_set('America/New_York');
 	</head>
 	<body>
 		<div class="container">
-			<?php if (!isset($_POST) || empty($_POST['name'])){ ?>
+			<?php if (!isset($_COOKIE['ttt-session'])){ ?>
 				<div class="main m-text">
 					<form action="index.php" method="POST" onsubmit=" return login()">
 						<input type="text" name="username" id="uname" required placeholder="Username" class="my-input"><br> 

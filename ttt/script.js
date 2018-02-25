@@ -62,10 +62,13 @@ function login(){
 		console.log(data);
 		if (data.status == "OK")
 			return true;
+		else {
+			console.log(data);
+			return false;
+		}
 	}).fail(function(err){
 
 	});
-	return false;
 }
 
 function signup(){
@@ -85,10 +88,13 @@ function signup(){
 		console.log(data);
 		if (data.status == "OK")
 			return true;
+		else{
+			console.log(data);
+			return false;
+		}
 	}).fail(function(err){
 
 	});
-	return false;
 }
 
 function load_board(){

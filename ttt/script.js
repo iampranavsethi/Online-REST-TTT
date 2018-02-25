@@ -103,7 +103,7 @@ function load_board(){
 	$.ajax({
 		'type': 'POST',
 		'url': './play',
-		'data': JSON.stringify({"grid": null}),
+		'data': JSON.stringify({"move": null}),
 		'contentType': 'application/json'
 	}).done(function(data){
 		if (data.status == "OK"){
@@ -124,7 +124,7 @@ function load_past_games(){
 		'contentType': 'application/json'
 	}).done(function(data){
 		if (data.status == "OK"){
-			$('#past-games').html(JSON.parse(data.games));
+			$('#past-games').html(data.games);
 		} else 
 			console.log(data);
 	}).fail(function(err){

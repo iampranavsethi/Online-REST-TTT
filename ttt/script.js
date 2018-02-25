@@ -32,7 +32,7 @@ function make_x_move(position){
 			ttt[position-1] = "X";
 			$.ajax({
 				'type': 'POST',
-				'url': './play',
+				'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/ttt/play',
 				'data': JSON.stringify({"move": (position-1)}),
 				'contentType': 'application/json'
 			}).done(function(data){
@@ -55,7 +55,7 @@ function login(){
 
 	$.ajax({
 		'type': 'POST',
-		'url': '../login',
+		'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/login',
 		'data': JSON.stringify({"username": username, "password": password}),
 		'contentType': 'application/json'
 	}).done(function(data){
@@ -81,7 +81,7 @@ function signup(){
 
 	$.ajax({
 		'type': 'POST',
-		'url': '../adduser',
+		'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/adduser',
 		'data': JSON.stringify({"username": username, "password": password, "email": email}),
 		'contentType': 'application/json'
 	}).done(function(data){
@@ -102,11 +102,11 @@ function signup(){
 function load_board(){
 	$.ajax({
 		'type': 'POST',
-		'url': './play',
+		'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/ttt/play',
 		'data': JSON.stringify({"move": null}),
 		'contentType': 'application/json'
 	}).done(function(data){
-		console.log(data.grid);
+		console.log(data);
 		ttt = data.grid
 		winner = data.winner;
 		print_board(ttt);
@@ -118,7 +118,7 @@ function load_board(){
 function load_past_games(){
 	$.ajax({
 		'type': 'POST',
-		'url': '../listgames',
+		'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/listgames',
 		'contentType': 'application/json'
 	}).done(function(data){
 		if (data.status == "OK"){

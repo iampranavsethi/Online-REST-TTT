@@ -69,8 +69,8 @@ date_default_timezone_set('America/New_York');
 			</div>
 			<script type="text/javascript">
 				$(function() {
-					load_board();
-					load_past_games();
+					// load_board();
+					// load_past_games();
 				});
 			</script>
 			</div>

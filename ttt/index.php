@@ -32,7 +32,7 @@ date_default_timezone_set('America/New_York');
 				<?php 
 					$time = getdate(time());
 					@unlink("log.txt");
-					$ses = json_decode(($_COOKIE['ttt-session'], true);
+					$ses = json_decode($_COOKIE['ttt-session'], true);
 				?>
 				Hello <?php echo trim(ucwords(strtolower( $ses['username'] ))). ". It's " . $time['month'] . " " . $time['mday'] . "<sup>th</sup>, " . $time['year'] ?> 
 	

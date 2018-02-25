@@ -30,7 +30,7 @@ function get_winner($grid){
 	return false;
 }
 
-// header('Content-Type: application/json');
+header('Content-Type: application/json');
 
 $response = array('grid' => array(" ", " ", " "," ", " ", " "," ", " ", " " ), 'winner' => " ");
 

@@ -60,9 +60,10 @@ function login(){
 		'contentType': 'application/json'
 	}).done(function(data){
 		console.log(data);
-		if (data.status == "OK")
+		if (data.status == "OK"){
 			location.reload(true);
 			return true;
+		}
 		else {
 			console.log(data);
 			return false;

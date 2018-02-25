@@ -45,3 +45,81 @@ function make_x_move(position){
 		}
 	}
 }
+
+function login(){
+
+	var password = $('[name="password"]').value;
+	var username = $('[name="username"]').value;
+
+	console.log (password + username);
+
+	$.ajax({
+		'type': 'POST',
+		'url': '../login',
+		'data': JSON.stringify({"username": username, "password": password}),
+		'contentType': 'application/json'
+	}).done(function(data){
+		console.log(status);
+		if (data.status == "OK")
+			return true;
+	}).fail(function(err){
+
+	});
+	return false;
+}
+
+function signup(){
+
+	var password = $('[name="password_"]').value;
+	var username = $('[name="username_"]').value;
+	var email = $('[name="email_"]').value;
+
+	console.log (password + username);
+
+	$.ajax({
+		'type': 'POST',
+		'url': '../adduser',
+		'data': JSON.stringify({"username": username, "password": password, "email": email}),
+		'contentType': 'application/json'
+	}).done(function(data){
+		console.log(status);
+		if (data.status == "OK")
+			return true;
+	}).fail(function(err){
+
+	});
+	return false;
+}
+
+function load_board(){
+	$.ajax({
+		'type': 'POST',
+		'url': './play',
+		'data': JSON.stringify({"grid": null}),
+		'contentType': 'application/json'
+	}).done(function(data){
+		if (data.status == "OK"){
+			ttt = data.grid
+			winner = data.winner;
+			print_board(ttt);
+		} else 
+			console.log(data);
+	}).fail(function(err){
+		console.log(err);
+	});
+}
+
+function load_past_games(){
+	$.ajax({
+		'type': 'POST',
+		'url': '../listgames',
+		'contentType': 'application/json'
+	}).done(function(data){
+		if (data.status == "OK"){
+			$('#past-games').html(JSON.parse(data.games));
+		} else 
+			console.log(data);
+	}).fail(function(err){
+		console.log(err);
+	});
+}

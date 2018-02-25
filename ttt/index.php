@@ -12,13 +12,22 @@ date_default_timezone_set('America/New_York');
 	<body>
 		<div class="container">
 			<?php if (!isset($_POST) || empty($_POST['name'])){ ?>
-			<form action="index.php" method="POST">
 				<div class="main m-text">
-					please&nbsp;enter&nbsp;your&nbsp;name<br> <br>
-					<input type="text" name="name" class="my-input"><br> <br> <br>
-					<input type="submit" class="my-button">
+					<form action="index.php" method="POST" onsubmit=" return login()">
+						<input type="text" name="username" required placeholder="Username" class="my-input"><br> 
+						<input type="password" name="password" required placeholder="Password" class="my-input"><br> <br>
+						<input type="hidden" name="name" value="">
+						<input type="submit" value="SIGN IN" class="my-button">
+					</form>
+					<br><br><hr> <br>
+					<form action="index.php" method="POST" onsubmit="return signup()">
+						<input type="email" name="email_" required placeholder="Email" class="my-input"><br> 
+						<input type="text" name="username_" required placeholder="Username" class="my-input"><br> 
+						<input type="password" name="password_" required placeholder="Password" class="my-input"><br> <br>
+						<input type="hidden" name="name" value="">
+						<input type="submit" value="SIGN UP" class="my-button">
+					</form>
 				</div>
-			</form>
 			<?php } else { ?>
 			<div class="main ">
 				<?php 
@@ -55,6 +64,9 @@ date_default_timezone_set('America/New_York');
 				<br><br>
 				<div class="winner"></div>
 
+			<div id="past-games">
+				
+			</div>
 			</div>
 
 			<?php } ?> 
@@ -62,5 +74,10 @@ date_default_timezone_set('America/New_York');
 		<div class="footer">
 			psethi@cs.stonybrook.edu
 		</div>
+
+		<script type="text/javascript">
+			load_board();
+			load_past_games();
+		</script>
 	</body>
 </html>

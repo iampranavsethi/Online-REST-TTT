@@ -3,7 +3,7 @@
 
 html, body{
 	margin: 0;
-	height: 100%;
+	height: 100%; 
 	width: 100%;
 	background-color: #fff;
 	font-family: 'Open Sans';
@@ -23,6 +23,7 @@ html, body{
 }
 .main{
 	position: absolute;
+	width: 550px;
 	top: 40%;
 	left: 50%;
 	-webkit-transform: translate(-50%,-40%);
@@ -33,7 +34,7 @@ html, body{
 	text-transform: uppercase;
 }
 
-input, input[type='text'].my-input{
+input, input[type='text'].my-input, input[type='password'].my-input, input[type='email'].my-input{
 	width: 75%;
 	padding: 15px;
 	outline: none;
@@ -42,7 +43,7 @@ input, input[type='text'].my-input{
 	font-family: 'Inconsolata', monospace;
 }
 
-input[type=submit].my-button{
+input[type=submit].my-button, input[type=button].my-button{
 	width: 50%;
 	background: none;
 	background-color: #39f; 

@@ -19,7 +19,7 @@ else {
 }
 
 $stmt = $conn->prepare("SELECT key__ FROM users WHERE email = ?");
-$stmt->bind_para("s", $__email);
+$stmt->bind_param("s", $__email);
 $__email = $email;
 $res = $stmt->execute();
 $key__ = "";

@@ -118,11 +118,15 @@ function load_board(){
 function load_past_games(){
 	$.ajax({
 		'type': 'POST',
-		'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/listgames',
+		'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/getscore',
 		'contentType': 'application/json'
 	}).done(function(data){
 		if (data.status == "OK"){
-			$('#past-games').html(data.games);
+			var t = $('#past-games').html();
+			t += "X: " + data.human;
+			t += "Y: " + data.wopr;
+			t += "-: " + data.tie;
+			$('#past-games').text(t);
 		} else 
 			console.log(data);
 	}).fail(function(err){

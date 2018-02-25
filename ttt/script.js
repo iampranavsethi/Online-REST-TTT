@@ -77,16 +77,16 @@ function login(){
 
 function signup(){
 
-	var password = $('#pwd_').val();
-	var username = $('#uname_').val();;
-	var email = $('#email_').val();
+	var password1 = $('#pwd_').val();
+	var username1 = $('#uname_').val();;
+	var email1 = $('#email_').val();
 
-	console.log (password + username + email);
+	console.log (password1 + username1 + email1);
 
 	$.ajax({
 		'type': 'POST',
 		'url': 'http://psethi.cse356.compas.cs.stonybrook.edu/adduser',
-		'data': JSON.stringify({"username": username, "password": password, "email": email}),
+		'data': JSON.stringify({"username": username1, "password": password1, "email": email1}),
 		'contentType': 'application/json'
 	}).done(function(data){
 		console.log(data);

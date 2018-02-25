@@ -79,7 +79,7 @@ function signup(){
 
 	var password = $('#pwd_').val();
 	var username = $('#uname_').val();;
-	var email = $('#email').val();
+	var email = $('#email_').val();
 
 	console.log (password + username + email);
 

@@ -24,7 +24,7 @@ function send_email($to, $keyy){
     $hs = "psethi.cse356.compas.cs.stonybrook.edu";
     $subject = "[WP2] Verify TTT Account!";
     
-    $link = "http://" . $hs . "/ttt/verify?email=" . $to . "&key=" . $keyy;
+    $link = "http://" . $hs . "/verify?email=" . $to . "&key=" . $keyy;
 
     $message = "
     <html>

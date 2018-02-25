@@ -87,7 +87,7 @@ function signup(){
 	}).done(function(data){
 		console.log(data);
 		if (data.status == "OK")
-			return true;
+			alert("Verify Email and login!");
 		else{
 			console.log(data);
 			return false;
@@ -95,6 +95,8 @@ function signup(){
 	}).fail(function(err){
 
 	});
+
+	return false;
 }
 
 function load_board(){

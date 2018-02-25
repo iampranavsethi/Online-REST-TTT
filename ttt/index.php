@@ -16,7 +16,7 @@ date_default_timezone_set('America/New_York');
 					<form action="index.php" method="POST" onsubmit=" return login()">
 						<input type="text" name="username" id="uname" required placeholder="Username" class="my-input"><br> 
 						<input type="password" name="password" id="pwd" required placeholder="Password" class="my-input"><br> <br>
-						<input type="hidden" name="name" value="">
+						<input type="hidden" name="name" value="test">
 						<input type="submit" value="SIGN IN" class="my-button">
 					</form>
 					<br><br><hr> <br>
@@ -24,7 +24,6 @@ date_default_timezone_set('America/New_York');
 						<input type="email" name="email_" id="email_" required placeholder="Email" class="my-input"><br> 
 						<input type="text" name="username_" id="uname_" required placeholder="Username" class="my-input"><br> 
 						<input type="password" name="password_" id="pwd_" required placeholder="Password" class="my-input"><br> <br>
-						<input type="hidden" name="name" value="">
 						<input type="submit" value="SIGN UP" class="my-button">
 					</form>
 				</div>

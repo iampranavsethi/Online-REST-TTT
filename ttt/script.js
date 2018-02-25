@@ -106,13 +106,10 @@ function load_board(){
 		'data': JSON.stringify({"move": null}),
 		'contentType': 'application/json'
 	}).done(function(data){
-		if (data.status == "OK"){
-			console.log(data);
-			ttt = data.grid
-			winner = data.winner;
-			print_board(ttt);
-		} else 
-			console.log(data);
+		console.log(data);
+		ttt = data.grid
+		winner = data.winner;
+		print_board(ttt);
 	}).fail(function(err){
 		console.log(err);
 	});

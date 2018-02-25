@@ -20,7 +20,8 @@ function success(){
 }
 
 function send_email($to, $keyy){
-	$hs = gethostname();
+	// $hs = gethostname();
+    $hs = "psethi.cse356.compas.cs.stonybrook.edu";
     $subject = "[WP2] Verify TTT Account!";
     
     $link = "http://" . $hs . "/ttt/verify?email=" . $to . "&key=" . $keyy;

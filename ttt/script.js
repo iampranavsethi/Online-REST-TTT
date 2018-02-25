@@ -33,7 +33,7 @@ function make_x_move(position){
 			$.ajax({
 				'type': 'POST',
 				'url': './play',
-				'data': JSON.stringify({"grid": ttt}),
+				'data': JSON.stringify({"move": (position-1)}),
 				'contentType': 'application/json'
 			}).done(function(data){
 				ttt = data.grid

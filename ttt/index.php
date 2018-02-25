@@ -34,7 +34,7 @@ date_default_timezone_set('America/New_York');
 					@unlink("log.txt");
 					$ses = json_decode($_COOKIE['ttt-session'], true);
 				?>
-				Hello <?php echo trim(ucwords(strtolower( $ses['username'] ))). ". It's " . $time['month'] . " " . $time['mday'] . "<sup>th</sup>, " . $time['year'] ?> 
+				Hello <?php echo trim( $ses['username'] ). ". It's " . $time['month'] . " " . $time['mday'] . "<sup>th</sup>, " . $time['year'] ?> 
 	
 				<?php #echo $_POST['name']. ", " . $time['mon'] . "/" . $time['mday'] . "/" . $time['year'] ?>
 

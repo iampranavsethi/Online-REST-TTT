@@ -36,7 +36,7 @@ function make_x_move(position){
 				'data': JSON.stringify({"move": (position-1)}),
 				'contentType': 'application/json'
 			}).done(function(data){
-				ttt = data.grid
+				ttt = data.grid;
 				winner = data.winner;
 				print_board(ttt);
 			}).fail(function(err){

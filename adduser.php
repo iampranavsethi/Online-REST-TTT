@@ -8,7 +8,7 @@ $data = json_decode($data, true);
 
 if (!empty($data) && isset($data['username']) && isset($data['password']) && isset($data['email']) ){
 
-	$stmt = $conn->prepare("INSERT INTO users (username, password, email, key) VALUES (?, ?, ?, ?)");
+	$stmt = $conn->prepare("INSERT INTO users (username, password, email, key__) VALUES (?, ?, ?, ?)");
 	$stmt->bind_param("sss", $username, $password, $email, $key);
 
 	$username = $data['username'];

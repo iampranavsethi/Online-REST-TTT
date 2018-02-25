@@ -14,16 +14,16 @@ date_default_timezone_set('America/New_York');
 			<?php if (!isset($_POST) || empty($_POST['name'])){ ?>
 				<div class="main m-text">
 					<form action="index.php" method="POST" onsubmit=" return login()">
-						<input type="text" name="username" required placeholder="Username" class="my-input"><br> 
-						<input type="password" name="password" required placeholder="Password" class="my-input"><br> <br>
+						<input type="text" name="username" id="uname" required placeholder="Username" class="my-input"><br> 
+						<input type="password" name="password" id="pwd" required placeholder="Password" class="my-input"><br> <br>
 						<input type="hidden" name="name" value="">
 						<input type="submit" value="SIGN IN" class="my-button">
 					</form>
 					<br><br><hr> <br>
 					<form action="index.php" method="POST" onsubmit="return signup()">
-						<input type="email" name="email_" required placeholder="Email" class="my-input"><br> 
-						<input type="text" name="username_" required placeholder="Username" class="my-input"><br> 
-						<input type="password" name="password_" required placeholder="Password" class="my-input"><br> <br>
+						<input type="email" name="email_" id="email_" required placeholder="Email" class="my-input"><br> 
+						<input type="text" name="username_" id="uname_" required placeholder="Username" class="my-input"><br> 
+						<input type="password" name="password_" id="pwd_" required placeholder="Password" class="my-input"><br> <br>
 						<input type="hidden" name="name" value="">
 						<input type="submit" value="SIGN UP" class="my-button">
 					</form>
@@ -67,17 +67,16 @@ date_default_timezone_set('America/New_York');
 			<div id="past-games">
 				
 			</div>
+			<script type="text/javascript">
+				load_board();
+				load_past_games();
+			</script>
 			</div>
-
+			
 			<?php } ?> 
 		</div>
 		<div class="footer">
 			psethi@cs.stonybrook.edu
 		</div>
-
-		<script type="text/javascript">
-			load_board();
-			load_past_games();
-		</script>
 	</body>
 </html>

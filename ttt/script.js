@@ -48,8 +48,8 @@ function make_x_move(position){
 
 function login(){
 
-	var password = $('[name="password"]').value;
-	var username = $('[name="username"]').value;
+	var password = $('#pwd').val();
+	var username = $('#uname').val();
 
 	console.log (password + username);
 
@@ -59,7 +59,7 @@ function login(){
 		'data': JSON.stringify({"username": username, "password": password}),
 		'contentType': 'application/json'
 	}).done(function(data){
-		console.log(status);
+		console.log(data);
 		if (data.status == "OK")
 			return true;
 	}).fail(function(err){
@@ -70,11 +70,11 @@ function login(){
 
 function signup(){
 
-	var password = $('[name="password_"]').value;
-	var username = $('[name="username_"]').value;
-	var email = $('[name="email_"]').value;
+	var password = $('#pwd_').val();
+	var username = $('#uname_').val();;
+	var email = $('#email').val();
 
-	console.log (password + username);
+	console.log (password + username + email);
 
 	$.ajax({
 		'type': 'POST',
@@ -82,7 +82,7 @@ function signup(){
 		'data': JSON.stringify({"username": username, "password": password, "email": email}),
 		'contentType': 'application/json'
 	}).done(function(data){
-		console.log(status);
+		console.log(data);
 		if (data.status == "OK")
 			return true;
 	}).fail(function(err){

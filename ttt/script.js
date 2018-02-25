@@ -126,7 +126,7 @@ function load_past_games(){
 			t += "<br>X: " + data.human;
 			t += "<br>Y: " + data.wopr;
 			t += "<br>-: " + data.tie;
-			$('#past-games').text(t);
+			$('#past-games').html(t);
 		} else 
 			console.log(data);
 	}).fail(function(err){

@@ -106,7 +106,7 @@ function load_board(){
 		'data': JSON.stringify({"move": null}),
 		'contentType': 'application/json'
 	}).done(function(data){
-		console.log(data);
+		console.log(data.grid);
 		ttt = data.grid
 		winner = data.winner;
 		print_board(ttt);

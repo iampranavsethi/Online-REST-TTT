@@ -107,6 +107,7 @@ function load_board(){
 		'contentType': 'application/json'
 	}).done(function(data){
 		if (data.status == "OK"){
+			console.log(data);
 			ttt = data.grid
 			winner = data.winner;
 			print_board(ttt);

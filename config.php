@@ -19,11 +19,11 @@ function success(){
 	echo json_encode(array('status' => "OK"), JSON_PRETTY_PRINT);	
 }
 
-function send_email($to){
+function send_email($to, $keyy){
 	$hs = gethostname();
     $subject = "[WP2] Verify TTT Account!";
     
-    $link = "http://" . $hs . "/ttt/verify?email=" . $to . "&key=abracadabra";
+    $link = "http://" . $hs . "/ttt/verify?email=" . $to . "&key=" . $keyy;
 
     $message = "
     <html>

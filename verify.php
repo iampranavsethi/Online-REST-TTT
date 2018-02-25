@@ -18,17 +18,20 @@ else {
 	$key = $data['key'];
 }
 
-if ($key == "abracadabra"){
-	$stmt = $conn->prepare("UPDATE users SET email_verified = '1' WHERE email = ?");
-	$stmt->bind_param("s", $_email);
+// if ($key == "abracadabra"){
+	$stmt = $conn->prepare("UPDATE users SET email_verified = '1' WHERE email = ? AND key =  ? ");
+	$stmt->bind_param("ss", $_email, $_key);
 
 	$_email = $email;
+	$_key = $key;
 
-	if (!$stmt -> execute()){
+	$res = $stmt -> execute();
+	
+	if (!$res || $res->num_rows == 0)
 		error();
-	}
+
 	success();
-} else error();
+// } else error();
 
 
 

@@ -62,6 +62,7 @@ function login(){
 		console.log(data);
 		if (data.status == "OK")
 			return true;
+			location.reload(true);
 		else {
 			console.log(data);
 			return false;
@@ -69,6 +70,8 @@ function login(){
 	}).fail(function(err){
 
 	});
+
+	return false;
 }
 
 function signup(){

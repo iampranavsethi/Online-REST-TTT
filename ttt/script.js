@@ -123,9 +123,9 @@ function load_past_games(){
 	}).done(function(data){
 		if (data.status == "OK"){
 			var t = $('#past-games').html();
-			t += "X: " + data.human;
-			t += "Y: " + data.wopr;
-			t += "-: " + data.tie;
+			t += "<br>X: " + data.human;
+			t += "<br>Y: " + data.wopr;
+			t += "<br>-: " + data.tie;
 			$('#past-games').text(t);
 		} else 
 			console.log(data);

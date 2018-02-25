@@ -65,7 +65,7 @@ date_default_timezone_set('America/New_York');
 				<div class="winner"></div>
 
 			<div id="past-games">
-				Score History: 
+				~Score History~
 			</div>
 			<script type="text/javascript">
 				$(function() {
